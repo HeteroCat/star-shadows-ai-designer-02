@@ -275,6 +275,6 @@ uvicorn main:app --host 0.0.0.0 --port $PORT
 
 [🐛 报告Bug](../../issues) • [✨ 请求功能](../../issues) • [💬 讨论](../../discussions)
 
- Made with ❤️ by Star Shadows Team
+ Made with ❤️ by HeteroCat
 
 </div>
