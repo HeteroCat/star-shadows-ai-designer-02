@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './AIDesignerHome.css';
 
 const AIDesignerHome = () => {
@@ -63,6 +64,8 @@ const AIDesignerHome = () => {
   const toggleFaq = (index) => {
     setActiveFaq(activeFaq === index ? null : index);
   };
+
+
 
   return (
     <div className="ai-designer-home">
@@ -1457,15 +1460,15 @@ const AIDesignerHome = () => {
       {/* 顶部导航栏 */}
       <header className="header">
         <div className="logo">
-          <a href="#">星流图影.AI</a>
+          <a href="#">StarShadows.AI</a>
         </div>
         <nav className="nav-menu">
           <ul>
-            <li><a href="#">首页</a></li>
-            <li><a href="#" onClick={() => setActiveTab('clothing')}>AI服装</a></li>
-            <li><a href="#" onClick={() => setActiveTab('jewelry')}>AI珠宝</a></li>
-            <li><a href="#" onClick={() => setActiveTab('makeup')}>AI美妆</a></li>
-            <li><a href="#">作品广场</a></li>
+            <li><Link to="/">首页</Link></li>
+            <li><Link to="/clothing">AI服装</Link></li>
+            <li><Link to="/jewelry">AI珠宝</Link></li>
+            <li><Link to="/makeup">AI美妆</Link></li>
+            <li><Link to="/gallery">作品广场</Link></li>
           </ul>
         </nav>
         <div className="user-actions">
@@ -1480,7 +1483,7 @@ const AIDesignerHome = () => {
         <section className="hero-section">
           <div className="hero-content">
             <h1 className="hero-title">
-              星流图影<br />
+              StarShadows<br />
               AI设计师
             </h1>
             <p className="hero-subtitle">
@@ -1488,8 +1491,8 @@ const AIDesignerHome = () => {
               让创意与科技完美融合，打造独一无二的时尚作品。
             </p>
             <div className="hero-buttons">
-              <button className="btn-hero btn-primary">开始设计</button>
-              <button className="btn-hero btn-secondary">查看作品</button>
+              <Link to="/clothing" className="btn-hero btn-primary">开始设计</Link>
+              <Link to="/gallery" className="btn-hero btn-secondary">查看作品</Link>
             </div>
           </div>
           
@@ -1507,7 +1510,11 @@ const AIDesignerHome = () => {
                       <p>{slide.description}</p>
                       <button 
                         className="slide-btn"
-                        onClick={() => setActiveTab(slide.category)}
+                        onClick={() => {
+                          if (slide.category === 'clothing') handleClothingClick();
+                          else if (slide.category === 'jewelry') handleJewelryClick();
+                          else if (slide.category === 'makeup') handleMakeupClick();
+                        }}
                       >
                         了解更多
                       </button>
@@ -2036,9 +2043,9 @@ const AIDesignerHome = () => {
                    <div className="footer-column">
                      <h4>产品服务</h4>
                      <ul>
-                       <li><a href="#">AI服装</a></li>
-                       <li><a href="#">AI珠宝</a></li>
-                       <li><a href="#">AI美妆</a></li>
+                       <li><Link to="/clothing">AI服装</Link></li>
+                       <li><Link to="/jewelry">AI珠宝</Link></li>
+                       <li><Link to="/makeup">AI美妆</Link></li>
                      </ul>
                    </div>
                    
