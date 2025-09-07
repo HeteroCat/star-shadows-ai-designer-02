@@ -105,7 +105,7 @@ AI_MODELS_CONFIG = {
     },
     "google": {
         "api_url": "https://openrouter.ai/api/v1/chat/completions",
-        "api_key": os.getenv("GOOGLE_API_KEY"),
+        "api_key": os.getenv("OPENROUTER_API_KEY"),
         "model": "google/gemini-2.5-flash-image-preview"
     }
 }
@@ -198,7 +198,18 @@ async def generate_image_with_google(prompt: str, width: int = 512, height: int 
             )
             
             print(f"谷歌AI响应状态: {response.status_code}")
-            data = response.json()
+            
+            # 先获取响应文本进行调试
+            response_text = response.text
+            print(f"谷歌AI响应原始文本: {response_text[:1000]}...")  # 只打印前500个字符
+            
+            try:
+                data = response.json()
+        
+            except Exception as json_error:
+                print(f"JSON解析错误: {json_error}")
+                print(f"响应内容类型: {response.headers.get('content-type')}")
+                return create_placeholder_image(f"谷歌AI响应解析错误\n{str(json_error)[:30]}")
            
             
             if response.status_code == 200 and data.get("choices") and len(data["choices"]) > 0:
