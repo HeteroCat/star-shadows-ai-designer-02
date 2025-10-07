@@ -436,5 +436,34 @@ async def health_check():
     """健康检查接口"""
     return {"status": "ok", "message": "FastAPI server is running"}
 
+@app.get("/api/images")
+async def get_images():
+    """获取pic文件夹中的所有图片文件列表"""
+    try:
+        # 获取frontend/pic文件夹路径
+        frontend_dir = Path(__file__).parent.parent / "frontend"
+        pic_dir = frontend_dir / "pic"
+        
+        if not pic_dir.exists():
+            return {"error": "pic文件夹不存在"}
+        
+        # 支持的图片格式
+        image_extensions = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.bmp'}
+        
+        # 获取所有图片文件
+        image_files = []
+        for file_path in pic_dir.iterdir():
+            if file_path.is_file() and file_path.suffix.lower() in image_extensions:
+                image_files.append(file_path.name)
+        
+        # 按文件名排序
+        image_files.sort()
+        
+        return image_files
+        
+    except Exception as e:
+        print(f"获取图片列表错误: {e}")
+        return {"error": f"获取图片列表失败: {str(e)}"}
+
 if __name__ == "__main__":
     uvicorn.run("main:app", host=SERVER_HOST, port=SERVER_PORT, reload=DEBUG_MODE)

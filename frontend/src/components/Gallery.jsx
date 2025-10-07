@@ -8,35 +8,116 @@ const Gallery = ({ onBack }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 图片列表 - 基于pic文件夹中的图片
-  const imageList = [
-    '1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg',
-    '1f543916-68aa-4fa2-8b93-05371a8424d0.jpg',
-    'DALL·E 2023-12-29 18.04.24 - A futuristic electric car, showcasing sleek and modern design. The car is depicted on a smooth, open road with a cityscape in the background. The focu.png',
-    'DALL·E 2024-01-28 22.08.38 - A mystical night scene with a dark sky sprinkled with stars. In the center, a heart is depicted, entwined with tender, delicate threads, symbolizing a.png',
-    '双子座.jpg', '双鱼座.jpg', '双鱼座的星座化身为人，头戴花冠、穿着皇家服装、背景为银河天空 (1).png',
-    '处女座.jpg', '天秤座.jpg', '天蝎座.jpg', '射手座.jpg', '巨蟹座.jpg',
-    '摩羯座.jpg', '水瓶座.jpg', '狮子座.jpg', '白羊座.jpg', '金牛座.jpg'
-  ];
+  // 随机打乱数组的函数
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  // 动态获取pic文件夹中的所有图片
+  const getImageList = async () => {
+    try {
+      // 尝试通过后端API获取图片列表
+      const response = await fetch('/api/images');
+      if (response.ok) {
+        const imageFiles = await response.json();
+        return imageFiles;
+      }
+    } catch (error) {
+      console.log('无法通过API获取图片列表，使用默认列表');
+    }
+    
+    // 如果API不可用，使用已知的图片列表
+    const defaultImageList = [
+      'ai-clothing-1759682758493.png',
+      'ai-clothing-1759782788593.png',
+      'ai-clothing-1759782798985.png',
+      'ai-clothing-1759782832558.png',
+      'ai-clothing-1759820300799.png',
+      'ai-clothing-1759820332553.png',
+      'ai-clothing-1759820351648.png',
+      'ai-clothing-1759820429346.png',
+      'ai-clothing-1759820555821.png',
+      'ai-clothing-1759820574450.png',
+      'ai-clothing-1759820596963.png',
+      'ai-clothing-1759820616245.png',
+      'ai-clothing-1759820638009.png',
+      'ai-clothing-1759820661002.png',
+      'ai-clothing-1759820679520.png',
+      'ai-clothing-1759820706577.png',
+      'ai-clothing-1759820757858.png',
+      'ai-clothing-1759820786531.png',
+      'ai-clothing-1759820816953.png',
+      'ai-clothing-1759820881856.png',
+      'ai-jewelry-1759821030024.png',
+      'ai-jewelry-1759821048856.png',
+      'ai-jewelry-1759821079768.png',
+      'ai-jewelry-1759821113492.png',
+      'ai-jewelry-1759821132686.png',
+      'ai-jewelry-1759821162005.png',
+      'ai-jewelry-1759821183989.png',
+      'ai-jewelry-1759821233020.png',
+      'ai-jewelry-1759821248216.png',
+      'ai-jewelry-1759821266879.png',
+      'ai-jewelry-1759821289518.png',
+      'ai-jewelry-1759821317144.png',
+      'ai-makeup-1759821408698.png',
+      'ai-makeup-1759821432392.png',
+      'ai-makeup-1759821461821.png',
+      'ai-makeup-1759821485057.png',
+      'ai-makeup-1759821523121.png',
+      'ai-makeup-1759821542574.png',
+      'ai-makeup-1759821572688.png',
+      'ai-makeup-1759821607297.png',
+      'ai-makeup-1759821644297.png',
+      'ai-makeup-1759821665676.png',
+      'ai-makeup-1759821694453.png',
+      'ai-makeup-1759821752177.png',
+      'ai-makeup-1759821851238.png',
+      'ai-makeup-1759821872583.png',
+      'ai-makeup-1759821890053.png',
+      'ai-makeup-1759821938516.png',
+      'ai-makeup-1759821956450.png',
+      'ai-makeup-1759821974188.png'
+    ];
+    
+    return defaultImageList;
+  };
 
   useEffect(() => {
-    // 模拟加载图片信息
-    const loadImages = () => {
-      const imageData = imageList.map((filename, index) => ({
-        id: index + 1,
-        src: `/pic/${filename}`,
-        title: filename.split('.')[0],
-        description: `AI生成作品 - ${filename.split('.')[0]}`,
-        category: filename.includes('座') ? '星座系列' : 
-                 filename.includes('DALL') ? 'AI艺术' : '设计作品',
-        height: Math.floor(Math.random() * 200) + 250 // 随机高度用于瀑布流
-      }));
-      
-      setImages(imageData);
-      setLoading(false);
+    // 异步加载图片信息
+    const loadImages = async () => {
+      try {
+        const imageList = await getImageList();
+        // 随机打乱图片顺序，实现混合显示
+        const shuffledImageList = shuffleArray(imageList);
+        
+        const imageData = shuffledImageList.map((filename, index) => ({
+          id: index + 1,
+          src: `/pic/${filename}`,
+          title: filename.split('-')[1] || filename.split('.')[0], // 使用文件名的一部分作为标题
+          description: `AI生成作品 - ${filename.includes('clothing') ? 'AI服装设计' : 
+                       filename.includes('jewelry') ? 'AI珠宝设计' : 
+                       filename.includes('makeup') ? 'AI美妆设计' : '设计作品'}`,
+          category: filename.includes('clothing') ? 'AI服装设计' : 
+                   filename.includes('jewelry') ? 'AI珠宝设计' : 
+                   filename.includes('makeup') ? 'AI美妆设计' : '设计作品',
+          height: Math.floor(Math.random() * 200) + 250 // 随机高度用于瀑布流
+        }));
+        
+        setImages(imageData);
+        setLoading(false);
+      } catch (error) {
+        console.error('加载图片失败:', error);
+        setLoading(false);
+      }
     };
 
-    setTimeout(loadImages, 500); // 模拟加载延迟
+    loadImages();
   }, []);
 
   const handleImageClick = (image) => {

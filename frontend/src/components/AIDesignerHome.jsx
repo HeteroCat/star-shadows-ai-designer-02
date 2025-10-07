@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './AIDesignerHome.css';
 
 const AIDesignerHome = () => {
   const [activeTab, setActiveTab] = useState('clothing');
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeFaq, setActiveFaq] = useState(null);
+  const [showQRCode, setShowQRCode] = useState(false);
+  const navigate = useNavigate();
 
   const features = {
     clothing: {
@@ -63,6 +65,29 @@ const AIDesignerHome = () => {
 
   const toggleFaq = (index) => {
     setActiveFaq(activeFaq === index ? null : index);
+  };
+
+  // 轮播图"了解更多"按钮跳转处理函数
+  const handleClothingClick = () => {
+    navigate('/clothing');
+  };
+
+  const handleJewelryClick = () => {
+    navigate('/jewelry');
+  };
+
+  const handleMakeupClick = () => {
+    navigate('/makeup');
+  };
+
+  // 编辑推荐和热门作品"查看更多"按钮跳转处理函数
+  const handleViewMoreClick = () => {
+    navigate('/gallery');
+  };
+
+  // 热门作品"开始创作"按钮跳转处理函数
+  const handleStartCreatingClick = () => {
+    navigate('/clothing');
   };
 
 
@@ -485,6 +510,10 @@ const AIDesignerHome = () => {
           text-decoration: none;
           font-weight: 500;
           transition: color 0.3s ease;
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: inherit;
         }
 
         .view-more:hover {
@@ -1549,12 +1578,12 @@ const AIDesignerHome = () => {
         <section className="editors-pick-section">
           <div className="section-header">
             <h2 className="section-title">编辑推荐 Editor's Pick</h2>
-            <a href="#" className="view-more">查看更多</a>
+            <button onClick={handleViewMoreClick} className="view-more">查看更多</button>
           </div>
           <div className="editors-pick-grid">
             <div className="pick-card large">
               <div className="card-image">
-                <img src="https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=ethereal%20white%20flowing%20dress%20fashion%20design%2C%20minimalist%20elegant%20style%2C%20studio%20lighting&image_size=portrait_4_3" alt="优雅白裙" />
+                <img src="/ai-clothing-1759820351648.png" alt="AI服装设计" />
               </div>
               <div className="card-overlay">
                 
@@ -1562,7 +1591,7 @@ const AIDesignerHome = () => {
             </div>
             <div className="pick-card">
               <div className="card-image">
-                <img src="https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=futuristic%20sunglasses%20fashion%20accessory%2C%20sleek%20modern%20design%2C%20dark%20background&image_size=square" alt="未来眼镜" />
+                <img src="/ai-clothing-1759782798985.png" alt="时尚服装" />
               </div>
               <div className="card-overlay">
                 
@@ -1570,7 +1599,7 @@ const AIDesignerHome = () => {
             </div>
             <div className="pick-card">
               <div className="card-image">
-                <img src="https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=luxury%20brown%20fashion%20coat%2C%20textured%20fabric%2C%20high%20fashion%20photography&image_size=square" alt="奢华外套" />
+                <img src="/ai-clothing-1759820596963.png" alt="创意服装" />
               </div>
               <div className="card-overlay">
                 
@@ -1578,7 +1607,7 @@ const AIDesignerHome = () => {
             </div>
             <div className="pick-card">
               <div className="card-image">
-                <img src="https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=elegant%20white%20wedding%20dress%2C%20romantic%20design%2C%20soft%20lighting&image_size=square" alt="婚纱设计" />
+                <img src="/ai-jewelry-1759821030024.png" alt="珠宝设计" />
               </div>
               <div className="card-overlay">
                 
@@ -1586,9 +1615,14 @@ const AIDesignerHome = () => {
             </div>
             <div className="start-creating-card">
               <div className="creating-content">
-                <h3>Start Creating</h3>
-                <p>开始您的创作之旅</p>
-                <button className="btn-start-creating">立即开始</button>
+                <h3>Join Club</h3>
+                <p>加入我们的俱乐部</p>
+                <button 
+                  className="btn-start-creating"
+                  onClick={() => setShowQRCode(true)}
+                >
+                  立即加入
+                </button>
               </div>
             </div>
           </div>
@@ -1598,12 +1632,12 @@ const AIDesignerHome = () => {
         <section className="hot-pick-section">
           <div className="section-header">
             <h2 className="section-title">热门作品 Hot Pick</h2>
-            <a href="#" className="view-more">查看更多</a>
+            <button onClick={handleViewMoreClick} className="view-more">查看更多</button>
           </div>
           <div className="hot-pick-grid">
             <div className="hot-card large">
               <div className="card-image">
-                <img src="https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=futuristic%20sci-fi%20cityscape%20architecture%2C%20cyberpunk%20style%2C%20neon%20lights%2C%20dark%20atmosphere&image_size=landscape_16_9" alt="未来城市" />
+                <img src="/ai-jewelry-1759821162005.png" alt="精美珠宝" />
               </div>
               <div className="card-overlay">
                
@@ -1611,7 +1645,7 @@ const AIDesignerHome = () => {
             </div>
             <div className="hot-card">
               <div className="card-image">
-                <img src="https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=luxury%20black%20high%20heel%20shoes%2C%20elegant%20design%2C%20fashion%20photography&image_size=square" alt="奢华高跟鞋" />
+                <img src="/ai-makeup-1759821408698.png" alt="美妆设计" />
               </div>
               <div className="card-overlay">
                 
@@ -1619,7 +1653,7 @@ const AIDesignerHome = () => {
             </div>
             <div className="hot-card">
               <div className="card-image">
-                <img src="https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=luxury%20leather%20handbag%2C%20brown%20texture%2C%20high%20fashion%20accessory&image_size=square" alt="奢华手袋" />
+                <img src="/ai-makeup-1759821523121.png" alt="时尚美妆" />
               </div>
               <div className="card-overlay">
                 
@@ -1627,17 +1661,17 @@ const AIDesignerHome = () => {
             </div>
             <div className="hot-card">
               <div className="card-image">
-                <img src="https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=luxury%20sneakers%20design%2C%20modern%20athletic%20shoes%2C%20premium%20materials&image_size=square" alt="运动鞋设计" />
+                <img src="/ai-makeup-1759821665676.png" alt="创意美妆" />
               </div>
               <div className="card-overlay">
                 
               </div>
             </div>
-            <div className="start-creating-card green">
+            <div className="start-creating-card">
               <div className="creating-content">
                 <h3>Start Creating</h3>
                 <p>探索更多可能性</p>
-                <button className="btn-start-creating">开始创作</button>
+                <button onClick={handleStartCreatingClick} className="btn-start-creating">开始创作</button>
               </div>
             </div>
           </div>
@@ -1646,63 +1680,50 @@ const AIDesignerHome = () => {
         {/* 服务特色区域 */}
         <section className="features-section">
           <div className="section-header">
-            <h2 className="section-title">服务特色 Our Features</h2>
-            
+            <h2 className="section-title">三大AI功能 Our AI Services</h2>
           </div>
-          <div className="features-grid">
-            <div className="feature-card">
-              <div className="feature-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" fill="white"/>
-                </svg>
+          <div className="ai-services-grid">
+            <div className="ai-service-card">
+              <div className="ai-service-image">
+                <img src="/ai-clothing-feature.png" alt="AI服装设计" />
               </div>
-              <h3>AI智能设计</h3>
-              <p>运用先进的人工智能算法，分析时尚趋势和用户偏好，生成独特的设计方案</p>
+              <div className="ai-service-content">
+                <h3>AI服装设计</h3>
+                <p>运用先进的人工智能技术，为您量身定制独特的服装设计方案。从概念到成品，AI助您实现时尚梦想。</p>
+                <div className="service-features">
+                  <span className="feature-tag">智能搭配</span>
+                  <span className="feature-tag">风格定制</span>
+                  <span className="feature-tag">快速生成</span>
+                </div>
+              </div>
             </div>
-            <div className="feature-card">
-              <div className="feature-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="white"/>
-                </svg>
+            <div className="ai-service-card">
+              <div className="ai-service-image">
+                <img src="/ai-jewelry-feature.png" alt="AI珠宝设计" />
               </div>
-              <h3>个性化定制</h3>
-              <p>根据您的身材、喜好和场合需求，提供量身定制的设计解决方案</p>
+              <div className="ai-service-content">
+                <h3>AI珠宝设计</h3>
+                <p>精美绝伦的珠宝设计，由AI技术驱动。从经典到现代，从简约到奢华，为您打造专属的珠宝艺术品。</p>
+                <div className="service-features">
+                  <span className="feature-tag">精工细作</span>
+                  <span className="feature-tag">个性定制</span>
+                  <span className="feature-tag">艺术创新</span>
+                </div>
+              </div>
             </div>
-            <div className="feature-card">
-              <div className="feature-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="white"/>
-                </svg>
+            <div className="ai-service-card">
+              <div className="ai-service-image">
+                <img src="/ai-makeup-feature.png" alt="AI美妆设计" />
               </div>
-              <h3>3D可视化</h3>
-              <p>提供高质量的3D建模和渲染，让您在制作前就能看到最终效果</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9z" fill="white"/>
-                </svg>
+              <div className="ai-service-content">
+                <h3>AI美妆设计</h3>
+                <p>智能美妆方案，让每一次妆容都成为艺术。AI分析面部特征，为您推荐最适合的妆容风格和产品搭配。</p>
+                <div className="service-features">
+                  <span className="feature-tag">面部分析</span>
+                  <span className="feature-tag">妆容推荐</span>
+                  <span className="feature-tag">色彩搭配</span>
+                </div>
               </div>
-              <h3>快速迭代</h3>
-              <p>支持快速修改和优化设计，多版本对比，确保最佳设计效果</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" fill="white"/>
-                </svg>
-              </div>
-              <h3>专业建议</h3>
-              <p>基于行业经验和市场数据，提供专业的设计建议和趋势分析</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 6L12 10.5 8.5 8 12 5.5 15.5 8zM8.5 16L12 13.5 15.5 16 12 18.5 8.5 16z" fill="white"/>
-                </svg>
-              </div>
-              <h3>多平台支持</h3>
-              <p>支持Web、移动端等多平台访问，随时随地进行设计创作</p>
             </div>
           </div>
          </section>
@@ -1764,67 +1785,76 @@ const AIDesignerHome = () => {
             </div>
            </section>
 
-           {/* 设计流程区域 */}
-           <section className="process-section">
+           {/* 价格档位区域 */}
+           <section className="pricing-section">
              <div className="section-header">
-               <h2 className="section-title">设计流程 Design Process</h2>
-               
+               <h2 className="section-title">价格档位 Pricing Plans</h2>
              </div>
-             <div className="process-container">
-               <div className="process-step">
-                 <div className="step-number">01</div>
-                 <div className="step-icon">
-                   <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="#a855f7"/>
-                   </svg>
+             <div className="pricing-container">
+               <div className="pricing-card basic">
+                 <div className="pricing-header">
+                   <h3>基础设计套餐</h3>
+                   <div className="price">
+                     <span className="currency">¥</span>
+                     <span className="amount">29</span>
+                     <span className="period">起</span>
+                   </div>
                  </div>
-                 <h3>需求描述</h3>
-                 <p>详细描述您的设计需求，包括风格偏好、使用场合、预算范围等信息</p>
-               </div>
-               <div className="process-arrow">
-                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                   <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="#a855f7"/>
-                 </svg>
-               </div>
-               <div className="process-step">
-                 <div className="step-number">02</div>
-                 <div className="step-icon">
-                   <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                     <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" fill="#a855f7"/>
-                   </svg>
+                 <div className="pricing-features">
+                   <ul>
+                     <li>AI智能设计方案生成</li>
+                     <li>基础风格定制</li>
+                     <li>2次免费修改</li>
+                     <li>高清效果图输出</li>
+                     <li>7天交付周期</li>
+                   </ul>
                  </div>
-                 <h3>AI分析</h3>
-                 <p>我们的AI系统分析您的需求，结合时尚趋势和设计原理，生成初步方案</p>
+                 <button className="pricing-btn">选择套餐</button>
                </div>
-               <div className="process-arrow">
-                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                   <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="#a855f7"/>
-                 </svg>
-               </div>
-               <div className="process-step">
-                 <div className="step-number">03</div>
-                 <div className="step-icon">
-                   <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#a855f7"/>
-                   </svg>
+               
+               <div className="pricing-card premium">
+                 <div className="pricing-header">
+                   <h3>高级设计套餐</h3>
+                   <div className="price">
+                     <span className="currency">¥</span>
+                     <span className="amount">1999</span>
+                     <span className="period">起</span>
+                   </div>
                  </div>
-                 <h3>方案优化</h3>
-                 <p>根据您的反馈进行方案调整和优化，确保设计完全符合您的期望</p>
-               </div>
-               <div className="process-arrow">
-                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                   <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="#a855f7"/>
-                 </svg>
-               </div>
-               <div className="process-step">
-                 <div className="step-number">04</div>
-                 <div className="step-icon">
-                   <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                     <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" fill="#a855f7"/>
-                   </svg>
+                 <div className="pricing-features">
+                   <ul>
+                     <li>专业AI设计师一对一服务</li>
+                     <li>多风格方案对比</li>
+                     <li>无限次修改</li>
+                     <li>3D建模与渲染</li>
+                     <li>技术规格文档</li>
+                     <li>3天快速交付</li>
+                     <li>专属客服支持</li>
+                   </ul>
                  </div>
-                 <h3>交付成果</h3>
-                 <p>提供高质量的设计文件，包括3D效果图、技术规格和制作建议</p>
+                 <button className="pricing-btn">选择套餐</button>
+               </div>
+               
+               <div className="pricing-card enterprise">
+                 <div className="pricing-header">
+                   <h3>企业合作</h3>
+                   <div className="price">
+                     <span className="custom-price">定制报价</span>
+                   </div>
+                 </div>
+                 <div className="pricing-features">
+                   <ul>
+                     <li>批量设计服务</li>
+                     <li>品牌定制化方案</li>
+                     <li>专业团队支持</li>
+                     <li>灵活交付时间</li>
+                     <li>长期合作优惠</li>
+                   </ul>
+                 </div>
+                 <div className="pricing-note">
+                   <p>具体价格根据设计复杂度、修改次数、交付时间等因素确定</p>
+                 </div>
+                 <button className="pricing-btn">联系我们</button>
                </div>
              </div>
            </section>
@@ -2091,6 +2121,28 @@ const AIDesignerHome = () => {
              </div>
            </footer>
          </main>
+
+         {/* 二维码弹窗 */}
+         {showQRCode && (
+           <div className="qr-modal-overlay" onClick={() => setShowQRCode(false)}>
+             <div className="qr-modal" onClick={(e) => e.stopPropagation()}>
+               <div className="qr-modal-header">
+                 <h3>扫描二维码加入俱乐部</h3>
+                 <button 
+                   className="qr-modal-close"
+                   onClick={() => setShowQRCode(false)}
+                 >
+                   ×
+                 </button>
+               </div>
+               <div className="qr-modal-content">
+                 <div className="qr-code-container">
+                   <img src="/club.png" alt="加入俱乐部二维码" className="qr-code-image" />
+                 </div>
+               </div>
+             </div>
+           </div>
+         )}
        </div>
      );
    };
