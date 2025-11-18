@@ -200,12 +200,12 @@ export default function AIDesignerHome() {
           </div>
           <div className="pricing-container">
             <div className="pricing-card basic">
-              <div className="pricing-header"><h3>基础设计套餐</h3><div className="price"><span className="currency">¥</span><span className="amount">29</span><span className="period">起</span></div></div>
+              <div className="pricing-header"><h3>基础设计套餐</h3><div className="price"><span className="currency">¥</span><span className="amount">00</span><span className="period">起</span></div></div>
               <div className="pricing-features"><ul><li>AI智能设计方案生成</li><li>基础风格定制</li><li>2次免费修改</li><li>高清效果图输出</li><li>7天交付周期</li></ul></div>
               <button className="pricing-btn">选择套餐</button>
             </div>
             <div className="pricing-card premium">
-              <div className="pricing-header"><h3>高级设计套餐</h3><div className="price"><span className="currency">¥</span><span className="amount">1999</span><span className="period">起</span></div></div>
+              <div className="pricing-header"><h3>高级设计套餐</h3><div className="price"><span className="currency">¥</span><span className="amount">0000</span><span className="period">起</span></div></div>
               <div className="pricing-features"><ul><li>专业AI设计师一对一服务</li><li>多风格方案对比</li><li>无限次修改</li><li>3D建模与渲染</li><li>技术规格文档</li><li>3天快速交付</li><li>专属客服支持</li></ul></div>
               <button className="pricing-btn">选择套餐</button>
             </div>
