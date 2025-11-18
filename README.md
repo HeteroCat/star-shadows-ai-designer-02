@@ -146,6 +146,7 @@ npm run lint
 3. 配置环境变量 `DMX_API_KEY`
 4. 自动部署完成
 
+
 ### 手动部署
 ```bash
 npm run build
