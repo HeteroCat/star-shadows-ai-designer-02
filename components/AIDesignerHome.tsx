@@ -47,7 +47,7 @@ export default function AIDesignerHome() {
           <div className="hero-inner">
             <div className="hero-content">
               <h1 className="hero-title">StarShadows<br/>AI设计师</h1>
-              <p className="hero-subtitle">利用人工智能技术，为您提供专业的服装、珠宝、美妆设计服务。让创意与科技完美融合，打造独一无二的时尚作品。</p>
+              <p className="hero-subtitle">利用人工智能技术，为您提供专业的服装、珠宝、美妆服务。让创意与科技完美融合打造独一无二的时尚作品。</p>
               <div className="hero-buttons">
                 <Link href="/clothing" className="btn-hero btn-primary">开始设计</Link>
                 <Link href="/gallery" className="btn-hero btn-secondary">查看作品</Link>
