@@ -152,6 +152,29 @@ export default function AIMakeup() {
       <div className="makeup-container">
         <div className="design-form">
           <h2>设计参数</h2>
+
+          {/* 快捷提示词按钮 */}
+          <div className="prompt-shortcuts">
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '自然清新日常妆容，裸妆底妆，淡粉色腮红，自然眉形，豆沙色唇膏，突出好气色，适合日常上班' }))}>
+              自然日常妆
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '性感烟熏妆，深邃眼妆，黑色眼线，浓密睫毛，高光修容，酒红色唇膏，展现魅惑气质' }))}>
+              烟熏妆
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '甜美粉色系妆容，粉嫩底妆，樱花粉腮红，细长眼线，水润粉色唇彩，打造少女感' }))}>
+              甜美粉妆
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '复古红唇妆容，哑光底妆，精致眼线，浓密睫毛，经典正红色唇膏，展现优雅复古气质' }))}>
+              复古红唇
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '韩系清透妆容，水光肌底妆，自然眉毛，淡橘色眼影，咬唇妆，清新自然，展现少女感' }))}>
+              韩系清透
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '欧美立体妆容，高光修容，深邃眼窝，浓密假睫毛，丰满唇形，展现立体五官和气场' }))}>
+              欧美立体
+            </button>
+          </div>
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="description">设计描述</label>
@@ -160,7 +183,7 @@ export default function AIMakeup() {
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
-                placeholder="请描述您想要的美妆效果，例如：一个精致的烟熏妆，突出眼部轮廓..."
+                placeholder="请描述您想要的美妆效果，或点击上方快捷按钮..."
                 rows={4}
                 required
               />

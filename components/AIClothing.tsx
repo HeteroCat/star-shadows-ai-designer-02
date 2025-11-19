@@ -160,6 +160,29 @@ export default function AIClothing() {
       <div className="clothing-container">
         <div className="design-form">
           <h2>设计参数</h2>
+
+          {/* 快捷提示词按钮 */}
+          <div className="prompt-shortcuts">
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '一件优雅的黑色晚礼服，V领设计，腰部收紧，裙摆飘逸，搭配精致的蕾丝细节和闪亮的水晶装饰' }))}>
+              优雅晚礼服
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '时尚街头风格连帽卫衣，宽松版型，前胸印有潮流图案，袖口和下摆采用撞色设计，搭配运动裤' }))}>
+              街头潮流
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '商务正装西装套装，修身剪裁，深蓝色面料，双排扣设计，搭配白色衬衫和领带，展现专业气质' }))}>
+              商务西装
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '复古风格碎花连衣裙，方领设计，泡泡袖，高腰A字裙摆，搭配蝴蝶结腰带，展现甜美气质' }))}>
+              复古连衣裙
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '运动休闲套装，透气速干面料，修身运动上衣搭配弹力紧身裤，配色鲜艳，适合健身和日常穿着' }))}>
+              运动套装
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '中式改良旗袍，立领设计，斜襟盘扣，修身剪裁，侧开叉，采用丝绸面料，绣有精美的花卉图案' }))}>
+              中式旗袍
+            </button>
+          </div>
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="description">设计描述</label>
@@ -168,7 +191,7 @@ export default function AIClothing() {
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
-                placeholder="请描述您想要的服装设计，例如：一件优雅的晚礼服，带有蕾丝装饰..."
+                placeholder="请描述您想要的服装设计，或点击上方快捷按钮..."
                 rows={4}
                 required
               />

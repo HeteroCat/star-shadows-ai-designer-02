@@ -152,6 +152,29 @@ export default function AIJewelry() {
       <div className="jewelry-container">
         <div className="design-form">
           <h2>设计参数</h2>
+
+          {/* 快捷提示词按钮 */}
+          <div className="prompt-shortcuts">
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '精致的钻石订婚戒指，铂金戒托，中央镶嵌1克拉圆形钻石，周围环绕小钻，简约优雅的六爪镶嵌设计' }))}>
+              钻石戒指
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '奢华的红宝石项链，18K黄金链条，主石为椭圆形红宝石，周围镶嵌钻石，展现高贵气质' }))}>
+              红宝石项链
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '时尚的珍珠耳环，925银耳钩，天然淡水珍珠，简约设计，适合日常佩戴，展现优雅气质' }))}>
+              珍珠耳环
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '复古风格的翡翠手镯，天然A货翡翠，圆润饱满，色泽翠绿，内圈抛光细腻，传统中式设计' }))}>
+              翡翠手镯
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '现代几何风格胸针，玫瑰金材质，镶嵌蓝宝石和钻石，抽象几何图案，展现艺术感和时尚感' }))}>
+              几何胸针
+            </button>
+            <button type="button" className="prompt-btn" onClick={() => setFormData(prev => ({ ...prev, description: '精美的紫水晶吊坠，纯银镶嵌，水滴形紫水晶主石，周围环绕小钻，配银链，神秘优雅' }))}>
+              紫水晶吊坠
+            </button>
+          </div>
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="description">设计描述</label>
@@ -160,7 +183,7 @@ export default function AIJewelry() {
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
-                placeholder="请描述您想要的珠宝设计，例如：一枚精致的订婚戒指，镶嵌着闪亮的钻石..."
+                placeholder="请描述您想要的珠宝设计，或点击上方快捷按钮..."
                 rows={4}
                 required
               />
