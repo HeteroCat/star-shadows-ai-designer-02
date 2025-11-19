@@ -15,6 +15,7 @@ export default function AIMakeup() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [generatedImage, setGeneratedImage] = useState<string | null>(null)
   const [designs, setDesigns] = useState<any[]>([])
+  const [selectedHistory, setSelectedHistory] = useState<any | null>(null)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -113,6 +114,27 @@ export default function AIMakeup() {
     if (!res.ok) return alert('下载失败，请重试')
     const blob = await res.blob(); const url = URL.createObjectURL(blob)
     const a = document.createElement('a'); a.href = url; a.download = `ai-makeup-${Date.now()}.png`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url)
+  }
+
+  const handleHistoryClick = (design: any) => {
+    setSelectedHistory(design)
+  }
+
+  const handleHistoryDownload = async (imageUrl: string) => {
+    const res = await fetch('/api/download-image', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: imageUrl }) })
+    if (!res.ok) return alert('下载失败，请重试')
+    const blob = await res.blob()
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `ai-makeup-history-${Date.now()}.png`
+    document.body.appendChild(a)
+    a.click(); document.body.removeChild(a); URL.revokeObjectURL(url)
+  }
+
+  const truncateText = (text: string, maxLength: number = 100) => {
+    if (!text) return ''
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text
   }
 
   const styleOptions = ['', '自然清新', '优雅经典', '时尚前卫', '复古怀旧', '甜美可爱', '性感魅惑', '艺术创意']
@@ -227,7 +249,93 @@ export default function AIMakeup() {
         </div>
         <div className="preview-area"><h2>设计预览</h2><div className="preview-container">{isGenerating ? (<div className="loading"><div className="loading-spinner"></div><p>AI正在为您生成设计...</p></div>) : generatedImage ? (<div className="generated-image"><img src={generatedImage} alt="生成的美妆设计" /><div className="image-actions"><button className="download-btn" onClick={handleDownload}>下载图片</button><button className="regenerate-btn" onClick={handleSubmit}>重新生成</button></div></div>) : (<div className="placeholder"><div className="placeholder-icon">💄</div><p>请填写设计参数并点击生成</p></div>)}</div></div>
       </div>
-      {designs.length > 0 && (<div className="design-history"><h2>设计历史</h2><div className="history-grid">{designs.map((d, i) => (<div key={d.id || i} className="history-item"><img src={d.image_url} alt={d.description} /><div className="history-info"><p className="history-desc">{d.description}</p><div className="history-meta"><span className="history-style">{d.style}</span><span className="history-occasion">{formData.occasion}</span><span className="history-skin">{formData.skinTone}</span><span className="history-model">{d.model}</span></div></div></div>))}</div></div>)}
+
+      {/* 设计历史 */}
+      {designs.length > 0 && (
+        <div className="design-history">
+          <h2>设计历史</h2>
+          <div className="history-grid">
+            {designs.map((d, i) => (
+              <div
+                key={d.id || i}
+                className="history-item"
+                onClick={() => handleHistoryClick(d)}
+                style={{ cursor: 'pointer' }}
+              >
+                <img src={d.image_url} alt={d.description} />
+                <div className="history-info">
+                  <p className="history-desc" title={d.description}>
+                    {truncateText(d.description, 100)}
+                  </p>
+                  <div className="history-meta">
+                    {d.style && <span className="history-style">{d.style}</span>}
+                    {d.color && <span className="history-color">{truncateText(d.color, 30)}</span>}
+                    {d.model && <span className="history-model">{truncateText(d.model, 20)}</span>}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 历史详情模态框 */}
+      {selectedHistory && (
+        <div
+          className="history-modal-overlay"
+          onClick={() => setSelectedHistory(null)}
+        >
+          <div
+            className="history-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="history-modal-header">
+              <h3>设计详情</h3>
+              <button
+                className="history-modal-close"
+                onClick={() => setSelectedHistory(null)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="history-modal-content">
+              <div className="history-modal-image">
+                <img src={selectedHistory.image_url} alt={selectedHistory.description} />
+              </div>
+              <div className="history-modal-info">
+                <div className="history-modal-section">
+                  <h4>设计描述</h4>
+                  <p>{selectedHistory.description}</p>
+                </div>
+                {selectedHistory.style && (
+                  <div className="history-modal-section">
+                    <h4>妆容风格</h4>
+                    <p>{selectedHistory.style}</p>
+                  </div>
+                )}
+                {selectedHistory.color && (
+                  <div className="history-modal-section">
+                    <h4>场合与肤色</h4>
+                    <p>{selectedHistory.color}</p>
+                  </div>
+                )}
+                {selectedHistory.model && (
+                  <div className="history-modal-section">
+                    <h4>AI模型</h4>
+                    <p>{selectedHistory.model}</p>
+                  </div>
+                )}
+                <button
+                  className="history-download-btn"
+                  onClick={() => handleHistoryDownload(selectedHistory.image_url)}
+                >
+                  下载图片
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -46,11 +46,11 @@ export default function AIDesignerHome() {
         <section className="hero-section">
           <div className="hero-inner">
             <div className="hero-content">
-              <h1 className="hero-title">StarShadows<br/>AI设计师</h1>
+              <h1 className="hero-title">StarShadows<br />AI设计师</h1>
               <p className="hero-subtitle">利用人工智能技术，为您提供专业的服装、珠宝、美妆服务。让创意与科技完美融合打造独一无二的时尚作品。</p>
               <div className="hero-buttons">
                 <Link href="/clothing" className="btn-hero btn-primary">开始设计</Link>
-                <Link href="/gallery" className="btn-hero btn-secondary">查看作品</Link>
+                <Link href="/gallery" className="btn-hero btn-secondary">作品广场</Link>
               </div>
             </div>
 
@@ -148,15 +148,6 @@ export default function AIDesignerHome() {
           </div>
         </section>
 
-        <section className="testimonials-section">
-          <div className="section-header"><h2 className="section-title">用户评价 Testimonials</h2></div>
-          <div className="testimonials-grid">
-            <div className="testimonial-card"><div className="testimonial-content"><div className="quote-icon">"</div><p>"Star Shadows的AI设计服务真的让我惊艳！作为一个时尚博主，我经常需要独特的服装设计灵感。这个平台不仅提供了创新的设计方案，还能根据我的个人风格进行定制。强烈推荐！"</p></div><div className="testimonial-author"><div className="author-avatar"><img src="https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20portrait%20of%20young%20asian%20woman%2C%20fashion%20blogger%2C%20elegant%20style&image_size=square" alt="李小雅" /></div><div className="author-info"><div className="author-name">李小雅</div><div className="author-title">时尚博主</div></div></div></div>
-            <div className="testimonial-card"><div className="testimonial-content"><div className="quote-icon">"</div><p>"作为珠宝设计师，我一直在寻找新的创作灵感。Star Shadows的AI珠宝设计功能给了我很多意想不到的创意。特别是3D预览功能，让我能够在制作前就看到最终效果。"</p></div><div className="testimonial-author"><div className="author-avatar"><img src="https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20portrait%20of%20middle-aged%20man%2C%20jewelry%20designer%2C%20creative%20artist&image_size=square" alt="王大明" /></div><div className="author-info"><div className="author-name">王大明</div><div className="author-title">珠宝设计师</div></div></div></div>
-            <div className="testimonial-card"><div className="testimonial-content"><div className="quote-icon">"</div><p>"我是一名美妆师，经常需要为客户设计独特的妆容。Star Shadows的AI美妆设计帮助我快速生成创意方案，大大提高了我的工作效率。客户们都很满意！"</p></div><div className="testimonial-author"><div className="author-avatar"><img src="https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20portrait%20of%20young%20woman%2C%20makeup%20artist%2C%20beauty%20professional&image_size=square" alt="张美丽" /></div><div className="author-info"><div className="author-name">张美丽</div><div className="author-title">专业美妆师</div></div></div></div>
-          </div>
-        </section>
-
         <section className="news-section">
           <div className="section-header"><h2 className="section-title">最新资讯 Latest News</h2></div>
           <div className="news-container">
@@ -172,7 +163,7 @@ export default function AIDesignerHome() {
         <section className="faq-section">
           <div className="section-header"><h2 className="section-title">常见问题 FAQ</h2></div>
           <div className="faq-container">
-            {[ 'AI设计的质量如何保证？', '设计周期需要多长时间？', '支持哪些设计类型？', '价格如何计算？', '设计版权归谁所有？', '如何开始设计项目？' ].map((q, idx) => (
+            {['AI设计的质量如何保证？', '设计周期需要多长时间？', '支持哪些设计类型？', '价格如何计算？', '设计版权归谁所有？', '如何开始设计项目？'].map((q, idx) => (
               <div key={idx} className={`faq-item ${activeFaq === idx ? 'active' : ''}`}>
                 <div className="faq-question" onClick={() => toggleFaq(idx)}><h3>{q}</h3><span className="faq-toggle">+</span></div>
                 <div className="faq-answer"><p>更多详情请联系在线客服或查看使用教程。</p></div>
@@ -239,7 +230,7 @@ export default function AIDesignerHome() {
       {showQRCode && (
         <div className="qr-modal-overlay" onClick={() => setShowQRCode(false)}>
           <div className="qr-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="qr-modal-header"><h3>扫描二维码加入俱乐部</h3><button className="qr-modal-close" onClick={() => setShowQRCode(false)}>×</button></div>
+            <div className="qr-modal-header"><h3>扫描二维码加入俱乐部</h3></div>
             <div className="qr-modal-content"><div className="qr-code-container"><img src="/club.png" alt="加入俱乐部二维码" className="qr-code-image" /></div></div>
           </div>
         </div>
