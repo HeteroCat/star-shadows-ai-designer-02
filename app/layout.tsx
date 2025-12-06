@@ -1,4 +1,5 @@
 import './globals.css'
+import LoginGate from '@/components/LoginGate'
 
 export const metadata = {
   title: 'Star Shadows AI Designer',
@@ -8,7 +9,11 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh">
-      <body>{children}</body>
+      <body>
+        <LoginGate>
+          {children}
+        </LoginGate>
+      </body>
     </html>
   )
 }
