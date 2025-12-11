@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from 'react'
-import Header from '@/components/Header'
 
 export default function Gallery() {
   const [images, setImages] = useState<{ id: number; src: string; title: string; description: string; category: string; height: number }[]>([])
@@ -37,8 +36,7 @@ export default function Gallery() {
 
   return (
     <div className="gallery-container">
-      <Header />
-      <div className="gallery-page-header"><h1 className="gallery-title">作品广场</h1><div className="gallery-stats"><span>{images.length} 件作品</span></div></div>
+      <div className="gallery-page-header"><h1 className="gallery-title">作品模板</h1><div className="gallery-stats"><span>{images.length} 件作品</span></div></div>
       <main className="gallery-main"><div className="masonry-grid">{images.map((image) => (<div key={image.id} className="masonry-item" onClick={() => setSelectedImage(image)}><div className="image-card"><div className="image-wrapper"><img src={image.src} alt={image.title} loading="lazy" onError={(e) => { (e.target as HTMLImageElement).src = '/favicon.ico' }} /><div className="image-overlay"><div className="overlay-content"><span className="category-tag">{image.category}</span></div></div></div></div></div>))}</div></main>
       {selectedImage && (
         <div className="image-modal" onClick={() => setSelectedImage(null)}>

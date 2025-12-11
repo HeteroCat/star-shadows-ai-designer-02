@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import MainFooter from '@/components/MainFooter'
 
 export default function AIDesignerHome() {
   const [activeTab, setActiveTab] = useState('clothing')
@@ -12,8 +13,6 @@ export default function AIDesignerHome() {
 
   const slides = [
     { id: 1, title: 'AI服装设计', description: '智能分析时尚趋势，为您定制专属服装设计方案', image: '/pic/AI服装.png', category: 'clothing' },
-    { id: 2, title: 'AI珠宝设计', description: '运用AI算法生成独特珠宝设计，结合传统工艺与现代美学', image: '/pic/ai-jewelry-1759821162005.png', category: 'jewelry' },
-    { id: 3, title: 'AI美妆设计', description: '基于面部特征分析，提供个性化美妆方案', image: '/pic/AI美妆.png', category: 'makeup' },
   ]
 
   const nextSlide = () => setCurrentSlide((p) => (p + 1) % slides.length)
@@ -23,40 +22,21 @@ export default function AIDesignerHome() {
 
   return (
     <div className="ai-designer-home">
-      <header className="header">
-        <div className="logo">
-          <a href="#" onClick={(e) => e.preventDefault()}>StarShadows.AI</a>
-        </div>
-        <nav className="nav-menu">
-          <ul>
-            <li><Link href="/">首页</Link></li>
-            <li><Link href="/clothing">AI服装</Link></li>
-            <li><Link href="/jewelry">AI珠宝</Link></li>
-            <li><Link href="/makeup">AI美妆</Link></li>
-            <li><Link href="/gallery">作品广场</Link></li>
-          </ul>
-        </nav>
-        <div className="user-actions">
-          <a href="#" className="btn" onClick={(e) => e.preventDefault()}>登录</a>
-          <a href="#" className="btn btn-primary" onClick={(e) => e.preventDefault()}>注册</a>
-        </div>
-      </header>
-
       <main className="main-content">
-        <section className="hero-section">
+        <section className="hero-section fade-in-section">
           <div className="hero-inner">
             <div className="hero-content">
               <h1 className="hero-title">StarShadows<br />AI设计师</h1>
-              <p className="hero-subtitle">利用人工智能技术，为您提供专业的服装、珠宝、美妆服务。让创意与科技完美融合打造独一无二的时尚作品。</p>
+              <p className="hero-subtitle">利用人工智能技术，为您提供专业的服装设计服务。让创意与科技完美融合，打造独一无二的时尚作品。</p>
               <div className="hero-buttons">
                 <Link href="/clothing" className="btn-hero btn-primary">开始设计</Link>
-                <Link href="/gallery" className="btn-hero btn-secondary">作品广场</Link>
+                <Link href="/gallery" className="btn-hero btn-secondary">作品模板</Link>
               </div>
             </div>
 
             <div className="hero-carousel">
               <div className="carousel-container">
-                <div className="carousel-wrapper" style={{ transform: `translateX(-${currentSlide * 33.333}%)` }}>
+                <div className="carousel-wrapper" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
                   {slides.map((slide) => (
                     <div key={slide.id} className="carousel-slide">
                       <div className="slide-image">
@@ -85,7 +65,7 @@ export default function AIDesignerHome() {
           </div>
         </section>
 
-        <section className="editors-pick-section">
+        <section className="editors-pick-section fade-in-section fade-in-delay-1">
           <div className="section-header">
             <h2 className="section-title">编辑推荐 Editor's Pick</h2>
             <button onClick={() => router.push('/gallery')} className="view-more">查看更多</button>
@@ -97,76 +77,60 @@ export default function AIDesignerHome() {
             </div>
             <div className="pick-card"><div className="card-image"><img src="/ai-clothing-1759782798985.png" alt="时尚服装" /></div><div className="card-overlay"></div></div>
             <div className="pick-card"><div className="card-image"><img src="/ai-clothing-1759820596963.png" alt="创意服装" /></div><div className="card-overlay"></div></div>
-            <div className="pick-card"><div className="card-image"><img src="/ai-jewelry-1759821030024.png" alt="珠宝设计" /></div><div className="card-overlay"></div></div>
+            <div className="pick-card"><div className="card-image"><img src="/ai-clothing-1759820596963.png" alt="现代服装" /></div><div className="card-overlay"></div></div>
             <div className="start-creating-card"><div className="creating-content"><h3>Join Club</h3><p>加入我们的俱乐部</p><button className="btn-start-creating" onClick={() => setShowQRCode(true)}>立即加入</button></div></div>
           </div>
         </section>
 
-        <section className="hot-pick-section">
-          <div className="section-header">
-            <h2 className="section-title">热门作品 Hot Pick</h2>
-            <button onClick={() => router.push('/gallery')} className="view-more">查看更多</button>
-          </div>
-          <div className="hot-pick-grid">
-            <div className="hot-card large"><div className="card-image"><img src="/ai-jewelry-1759821162005.png" alt="精美珠宝" /></div><div className="card-overlay"></div></div>
-            <div className="hot-card"><div className="card-image"><img src="/ai-makeup-1759821408698.png" alt="美妆设计" /></div><div className="card-overlay"></div></div>
-            <div className="hot-card"><div className="card-image"><img src="/ai-makeup-1759821523121.png" alt="时尚美妆" /></div><div className="card-overlay"></div></div>
-            <div className="hot-card"><div className="card-image"><img src="/ai-makeup-1759821665676.png" alt="创意美妆" /></div><div className="card-overlay"></div></div>
-            <div className="start-creating-card"><div className="creating-content"><h3>Start Creating</h3><p>探索更多可能性</p><button className="btn-start-creating" onClick={() => router.push('/clothing')}>开始创作</button></div></div>
-          </div>
-        </section>
-
-        <section className="features-section">
-          <div className="section-header">
-            <h2 className="section-title">三大AI功能 Our AI Services</h2>
-          </div>
-          <div className="ai-services-grid">
-            <div className="ai-service-card">
-              <div className="ai-service-image"><img src="/ai-clothing-1759820596963.png" alt="AI服装设计" /></div>
-              <div className="ai-service-content">
-                <h3>AI服装设计</h3>
-                <p>运用先进的人工智能技术，为您量身定制独特的服装设计方案。从概念到成品，AI助您实现时尚梦想。</p>
-                <div className="service-features"><span className="feature-tag">智能搭配</span><span className="feature-tag">风格定制</span><span className="feature-tag">快速生成</span></div>
-              </div>
-            </div>
-            <div className="ai-service-card">
-              <div className="ai-service-image"><img src="/ai-jewelry-1759821162005.png" alt="AI珠宝设计" /></div>
-              <div className="ai-service-content">
-                <h3>AI珠宝设计</h3>
-                <p>精美绝伦的珠宝设计，由AI技术驱动。从经典到现代，从简约到奢华，为您打造专属的珠宝艺术品。</p>
-                <div className="service-features"><span className="feature-tag">精工细作</span><span className="feature-tag">个性定制</span><span className="feature-tag">艺术创新</span></div>
-              </div>
-            </div>
-            <div className="ai-service-card">
-              <div className="ai-service-image"><img src="/ai-makeup-1759821523121.png" alt="AI美妆设计" /></div>
-              <div className="ai-service-content">
-                <h3>AI美妆设计</h3>
-                <p>智能美妆方案，让每一次妆容都成为艺术。AI分析面部特征，为您推荐最适合的妆容风格和产品搭配。</p>
-                <div className="service-features"><span className="feature-tag">面部分析</span><span className="feature-tag">妆容推荐</span><span className="feature-tag">色彩搭配</span></div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="news-section">
+        <section className="news-section fade-in-section fade-in-delay-3">
           <div className="section-header"><h2 className="section-title">最新资讯 Latest News</h2></div>
           <div className="news-container">
             <div className="news-card featured"><div className="news-image"><img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="2025春夏时尚趋势" /></div><div className="news-content"><div className="news-meta"><span className="news-category">时尚趋势</span><span className="news-date">2025-01-15</span></div><h3>2025春夏时尚趋势：AI设计引领未来</h3><p>探索人工智能如何重新定义时尚设计，从概念到成品的全新创作流程正在改变整个行业...</p><a href="#" className="read-more" onClick={(e) => e.preventDefault()}>阅读更多 →</a></div></div>
             <div className="news-grid">
-              <div className="news-card"><div className="news-image"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="珠宝设计技巧" /></div><div className="news-content"><div className="news-meta"><span className="news-category">设计技巧</span><span className="news-date">2025-01-12</span></div><h3>珠宝设计中的黄金比例运用</h3><p>了解如何在珠宝设计中运用数学美学，创造出令人惊艳的作品...</p><a href="#" className="read-more" onClick={(e) => e.preventDefault()}>阅读更多 →</a></div></div>
-              <div className="news-card"><div className="news-image"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="彩妆趋势" /></div><div className="news-content"><div className="news-meta"><span className="news-category">美妆趋势</span><span className="news-date">2025-01-10</span></div><h3>个性化彩妆：AI定制你的专属妆容</h3><p>通过面部识别和色彩分析，为每个人量身定制最适合的妆容方案...</p><a href="#" className="read-more" onClick={(e) => e.preventDefault()}>阅读更多 →</a></div></div>
+              <div className="news-card"><div className="news-image"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="服装设计技巧" /></div><div className="news-content"><div className="news-meta"><span className="news-category">设计技巧</span><span className="news-date">2025-01-12</span></div><h3>AI服装设计中的色彩搭配原理</h3><p>了解如何运用AI技术进行色彩分析，创造出令人惊艳的服装作品...</p><a href="#" className="read-more" onClick={(e) => e.preventDefault()}>阅读更多 →</a></div></div>
+              <div className="news-card"><div className="news-image"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="服装趋势" /></div><div className="news-content"><div className="news-meta"><span className="news-category">时尚趋势</span><span className="news-date">2025-01-10</span></div><h3>2025年服装设计流行趋势预测</h3><p>AI分析全球时尚数据，预测未来一年的服装设计流行趋势...</p><a href="#" className="read-more" onClick={(e) => e.preventDefault()}>阅读更多 →</a></div></div>
               <div className="news-card"><div className="news-image"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="可持续时尚" /></div><div className="news-content"><div className="news-meta"><span className="news-category">可持续发展</span><span className="news-date">2025-01-08</span></div><h3>可持续时尚：环保材料的创新应用</h3><p>探索如何在保持美观的同时，选择对环境友好的材料和工艺...</p><a href="#" className="read-more" onClick={(e) => e.preventDefault()}>阅读更多 →</a></div></div>
             </div>
           </div>
         </section>
 
-        <section className="faq-section">
+        <section className="faq-section fade-in-section fade-in-delay-4">
           <div className="section-header"><h2 className="section-title">常见问题 FAQ</h2></div>
           <div className="faq-container">
-            {['AI设计的质量如何保证？', '设计周期需要多长时间？', '支持哪些设计类型？', '价格如何计算？', '设计版权归谁所有？', '如何开始设计项目？'].map((q, idx) => (
+            {[
+              {
+                question: 'AI设计的质量如何保证？',
+                answer: '我们的AI系统经过大量专业设计数据训练，能够生成高质量的服装设计作品。系统支持多次迭代优化，您可以通过调整描述词、选择不同风格模板来达到理想效果。同时，我们还提供专业设计指导，帮助您获得最佳设计方案。'
+              },
+              {
+                question: '设计周期需要多长时间？',
+                answer: 'AI设计生成非常快速，通常在30秒到2分钟内即可完成一次设计生成。如果需要对结果进行调整优化，整个过程一般在10-30分钟内可以完成满意的设计作品。相比传统设计流程，AI设计效率提升10倍以上。'
+              },
+              {
+                question: '支持哪些设计类型？',
+                answer: '目前主要支持服装设计，包括但不限于：连衣裙、衬衫、外套、裤装、裙装等各种服装类型。风格涵盖日常休闲、商务正装、晚礼服、运动装、民族风等多种风格。未来还将扩展到配饰、鞋帽等更多时尚设计领域。'
+              },
+              {
+                question: '价格如何计算？',
+                answer: '我们提供灵活的定价方案：基础套餐免费使用，包含每月10次生成机会；专业套餐99元/月，支持无限生成和高级功能；企业套餐提供定制化报价。具体价格请参考定价页面，我们也会定期推出优惠活动。'
+              },
+              {
+                question: '设计版权归谁所有？',
+                answer: '根据我们的服务条款，通过AI生成的设计作品，您拥有完整的著作权和使用权，包括商业用途。您可以自由使用、修改、分享这些设计作品。我们不会对您的创作设置任何限制，但请确保遵守相关法律法规。'
+              },
+              {
+                question: '如何开始设计项目？',
+                answer: '开始使用非常简单：1）注册账户并登录；2）进入AI服装设计页面；3）输入您的设计描述和要求；4）选择风格模板；5）点击生成按钮；6）查看结果并进行优化调整。整个过程直观易用，即使没有设计经验也能快速上手。'
+              }
+            ].map((faq, idx) => (
               <div key={idx} className={`faq-item ${activeFaq === idx ? 'active' : ''}`}>
-                <div className="faq-question" onClick={() => toggleFaq(idx)}><h3>{q}</h3><span className="faq-toggle">+</span></div>
-                <div className="faq-answer"><p>更多详情请联系在线客服或查看使用教程。</p></div>
+                <div className="faq-question" onClick={() => toggleFaq(idx)}>
+                  <h3>{faq.question}</h3>
+                  <span className="faq-toggle">{activeFaq === idx ? '-' : '+'}</span>
+                </div>
+                <div className="faq-answer">
+                  <p>{faq.answer}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -185,46 +149,6 @@ export default function AIDesignerHome() {
           </div>
         </section>
 
-        <section className="pricing-section">
-          <div className="section-header">
-            <h2 className="section-title">价格档位 Pricing Plans</h2>
-          </div>
-          <div className="pricing-container">
-            <div className="pricing-card basic">
-              <div className="pricing-header"><h3>基础设计套餐</h3><div className="price"><span className="currency">¥</span><span className="amount">00</span><span className="period">起</span></div></div>
-              <div className="pricing-features"><ul><li>AI智能设计方案生成</li><li>基础风格定制</li><li>2次免费修改</li><li>高清效果图输出</li><li>7天交付周期</li></ul></div>
-              <button className="pricing-btn">选择套餐</button>
-            </div>
-            <div className="pricing-card premium">
-              <div className="pricing-header"><h3>高级设计套餐</h3><div className="price"><span className="currency">¥</span><span className="amount">0000</span><span className="period">起</span></div></div>
-              <div className="pricing-features"><ul><li>专业AI设计师一对一服务</li><li>多风格方案对比</li><li>无限次修改</li><li>3D建模与渲染</li><li>技术规格文档</li><li>3天快速交付</li><li>专属客服支持</li></ul></div>
-              <button className="pricing-btn">选择套餐</button>
-            </div>
-            <div className="pricing-card enterprise">
-              <div className="pricing-header"><h3>企业合作</h3><div className="price"><span className="custom-price">定制报价</span></div></div>
-              <div className="pricing-features"><ul><li>批量设计服务</li><li>品牌定制化方案</li><li>专业团队支持</li><li>灵活交付时间</li><li>长期合作优惠</li></ul></div>
-              <div className="pricing-note"><p>具体价格根据设计复杂度、修改次数、交付时间等因素确定</p></div>
-              <button className="pricing-btn">联系我们</button>
-            </div>
-          </div>
-        </section>
-
-        <footer className="footer-section">
-          <div className="footer-container">
-            <div className="footer-content">
-              <div className="footer-brand">
-                <h3>星流图影.AI</h3>
-                <p>专业的AI设计平台，为您提供智能化的设计解决方案。让创意与技术完美融合，打造独一无二的、符合市场的设计作品。</p>
-              </div>
-              <div className="footer-links">
-                <div className="footer-column"><h4>产品服务</h4><ul><li><Link href="/clothing">AI服装</Link></li><li><Link href="/jewelry">AI珠宝</Link></li><li><Link href="/makeup">AI美妆</Link></li></ul></div>
-                <div className="footer-column"><h4>支持帮助</h4><ul><li><a href="#">使用教程</a></li><li><a href="#">常见问题</a></li><li><a href="#">技术支持</a></li><li><a href="#">联系客服</a></li><li><a href="#">意见反馈</a></li></ul></div>
-                <div className="footer-column"><h4>关于我们</h4><ul><li><a href="#">公司介绍</a></li><li><a href="#">发展历程</a></li><li><a href="#">加入我们</a></li></ul></div>
-              </div>
-            </div>
-            <div className="footer-bottom"><div className="footer-bottom-content"><div className="copyright"><p>&copy; 2025 AI Designer. 保留所有权利。</p></div><div className="footer-bottom-links"><a href="#">隐私政策</a><a href="#">服务条款</a><a href="#">Cookie政策</a><a href="#">法律声明</a></div></div></div>
-          </div>
-        </footer>
       </main>
 
       {showQRCode && (
@@ -235,6 +159,8 @@ export default function AIDesignerHome() {
           </div>
         </div>
       )}
+
+      <MainFooter />
     </div>
   )
 }

@@ -49,6 +49,92 @@ a {
   padding: 12px 0;
 }
 
+/* 渐入动画 - 优化版 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    filter: blur(1px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 基础渐入动画 */
+.fade-in-section {
+  opacity: 0;
+  animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  will-change: opacity, transform, filter;
+}
+
+/* 缩放渐入动画 */
+.fade-in-scale {
+  opacity: 0;
+  animation: fadeInScale 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  will-change: opacity, transform, filter;
+}
+
+/* 左滑渐入动画 */
+.fade-in-left {
+  opacity: 0;
+  animation: slideInLeft 1.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  will-change: opacity, transform;
+}
+
+/* 动画延迟 */
+.fade-in-delay-1 {
+  animation-delay: 0.15s;
+}
+
+.fade-in-delay-2 {
+  animation-delay: 0.3s;
+}
+
+.fade-in-delay-3 {
+  animation-delay: 0.45s;
+}
+
+.fade-in-delay-4 {
+  animation-delay: 0.6s;
+}
+
+.fade-in-delay-5 {
+  animation-delay: 0.75s;
+}
+
+/* 为卡片添加悬停效果 */
+.fade-in-section:hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform: translateY(-2px);
+}
+
 .title {
   font-size: 28px;
   font-weight: 700;
@@ -1838,25 +1924,27 @@ a {
 
 /* 响应式设计 - 修复移动端显示问题 */
 @media (max-width: 1200px) {
-  .hero-section {
+  .hero-inner {
     flex-direction: column;
-    padding: 2rem 1rem;
     gap: 2rem;
+    align-items: center;
     justify-content: center;
-    align-items: center
+    padding: 0 1rem;
   }
 
   .hero-content {
     max-width: 100%;
     text-align: center;
-    padding: 0 1rem;
-    margin: 0 auto
+    padding: 0;
+    margin: 0;
+    order: 1;
   }
 
   .hero-carousel {
-    margin: 0 auto;
     width: 100%;
-    max-width: 600px
+    max-width: 600px;
+    order: 2;
+    min-height: auto;
   }
 
   .editors-pick-grid,
@@ -1896,23 +1984,51 @@ a {
     gap: 1rem
   }
 
+  .hero-section {
+    min-height: auto;
+    padding: 1rem 0;
+  }
+
+  .hero-inner {
+    padding: 0 1rem;
+    gap: 1.5rem;
+  }
+
+  .hero-content {
+    padding: 0;
+    margin: 0;
+  }
+
   .hero-title {
-    font-size: 2.5rem
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
   }
 
   .hero-subtitle {
-    font-size: 1rem
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
   }
 
   .hero-buttons {
     justify-content: center;
-    flex-direction: column;
-    align-items: center
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-hero {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    min-width: 120px;
   }
 
   .hero-carousel {
-    margin: 0 1rem;
-    min-height: auto
+    width: 100%;
+    margin: 0;
+    min-height: 280px;
   }
 
   .carousel-container {
@@ -2586,4 +2702,858 @@ img {
   height: 3px;
   background: transparent;
   box-shadow: 756px 1314px #FFF, 1931px 934px #FFF, 158px 1205px #FFF, 1876px 1123px #FFF, 1091px 1066px #FFF, 1688px 1845px #FFF, 310px 245px #FFF, 7px 951px #FFF, 1865px 1608px #FFF, 1406px 244px #FFF, 782px 200px #FFF, 1019px 590px #FFF, 215px 1025px #FFF, 700px 99px #FFF, 885px 1738px #FFF, 705px 1273px #FFF, 1371px 396px #FFF, 1767px 761px #FFF, 1369px 91px #FFF, 529px 1033px #FFF;
+}
+
+/* 定价页面样式 */
+.pricing-page, .tutorial-page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.pricing-hero, .tutorial-hero {
+  min-height: 50vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.pricing-hero-title, .tutorial-hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ffffff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pricing-hero-subtitle, .tutorial-hero-subtitle {
+  font-size: 1.2rem;
+  color: #d1d5db;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.pricing-billing-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.pricing-card {
+  background: #151518;
+  border: 1px solid #232329;
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pricing-card.popular {
+  border-color: #7c3aed;
+  box-shadow: 0 10px 40px rgba(124, 58, 237, 0.1);
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.popular-badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.pricing-header h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.pricing-price {
+  margin-bottom: 1rem;
+}
+
+.price-amount {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #a855f7;
+}
+
+.price-period {
+  color: #9ca3af;
+  font-size: 1rem;
+}
+
+.pricing-description {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.pricing-features {
+  margin-bottom: 2rem;
+}
+
+.pricing-features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.pricing-features li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #374151;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.pricing-features li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #10b981;
+  font-weight: bold;
+}
+
+.pricing-cta {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pricing-cta.btn-primary {
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  color: white;
+}
+
+.pricing-cta.btn-secondary {
+  background: #374151;
+  color: white;
+}
+
+.pricing-cta:hover {
+  transform: translateY(-2px);
+}
+
+/* 教程页面样式 */
+.tutorial-stats {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin: 3rem 0;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #a855f7;
+}
+
+.stat-label {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.quick-tips {
+  padding: 4rem 2rem;
+  background: #151518;
+}
+
+.tips-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tips-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+  color: var(--fg);
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.tip-card {
+  background: #1f2937;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #7c3aed;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.tip-card:hover {
+  transform: translateX(5px);
+}
+
+.tip-number {
+  background: #7c3aed;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.tutorial-categories {
+  padding: 2rem;
+  background: #111827;
+}
+
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.category-tab {
+  background: #1f2937;
+  border: 2px solid #374151;
+  color: #d1d5db;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.category-tab.active {
+  background: #7c3aed;
+  border-color: #7c3aed;
+  color: white;
+}
+
+.category-tab:hover {
+  border-color: #7c3aed;
+  color: white;
+}
+
+.tutorial-content {
+  padding: 4rem 2rem;
+}
+
+.tutorial-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tutorial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.tutorial-card {
+  background: #1f2937;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  align-items: center;
+}
+
+.tutorial-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.tutorial-thumbnail {
+  width: 80px;
+  height: 80px;
+  background: #374151;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tutorial-info {
+  flex: 1;
+}
+
+.tutorial-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.level-badge {
+  background: #059669;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.duration {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.tutorial-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--fg);
+}
+
+.tutorial-description {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.tutorial-start-btn {
+  background: #7c3aed;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+
+.tutorial-start-btn:hover {
+  background: #6d28d9;
+}
+
+/* FAQ 和资源部分 */
+.pricing-faq, .tutorial-resources, .pricing-cta, .tutorial-cta {
+  padding: 4rem 2rem;
+  background: #151518;
+}
+
+.faq-title, .resources-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+  color: var(--fg);
+}
+
+.faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background: #1f2937;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.faq-question {
+  padding: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.faq-question:hover {
+  background: #374151;
+}
+
+.faq-answer {
+  padding: 0 1.5rem 1.5rem;
+  color: #d1d5db;
+  line-height: 1.6;
+  display: none;
+}
+
+.faq-item.active .faq-answer {
+  display: block;
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.resource-card {
+  background: #1f2937;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.resource-card:hover {
+  transform: translateY(-5px);
+}
+
+.resource-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.resource-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--fg);
+}
+
+.resource-card p {
+  color: #9ca3af;
+  margin-bottom: 1.5rem;
+}
+
+.resource-btn {
+  background: #7c3aed;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.resource-btn:hover {
+  background: #6d28d9;
+}
+
+/* CTA 部分 */
+.cta-container {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta-container h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--fg);
+}
+
+.cta-container p {
+  font-size: 1.1rem;
+  color: #d1d5db;
+  margin-bottom: 2rem;
+}
+
+.btn-large {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .pricing-hero-title, .tutorial-hero-title {
+    font-size: 2rem;
+  }
+
+  .tutorial-stats {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .pricing-grid, .tutorial-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .tips-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-tabs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tutorial-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .resources-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 关于我们页面样式 */
+.about-page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.about-hero {
+  min-height: 60vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.about-hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #ffffff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.about-hero-subtitle {
+  font-size: 1.3rem;
+  color: #d1d5db;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  line-height: 1.8;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin-top: 3rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #a855f7;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: #9ca3af;
+  font-size: 1rem;
+}
+
+/* 使命愿景部分 */
+.mission-section {
+  padding: 6rem 2rem;
+  background: #151518;
+}
+
+.mission-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.mission-content,
+.vision-content {
+  padding: 2rem;
+}
+
+.mission-content h2,
+.vision-content h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--fg);
+}
+
+.mission-text,
+.vision-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #d1d5db;
+}
+
+/* 核心价值观 */
+.values-section {
+  padding: 6rem 2rem;
+  background: #111827;
+}
+
+.values-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+  margin-top: 4rem;
+}
+
+.value-card {
+  background: #1f2937;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #374151;
+}
+
+.value-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.value-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.value-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--fg);
+}
+
+.value-description {
+  color: #9ca3af;
+  line-height: 1.6;
+}
+
+/* 团队部分 */
+.team-section {
+  padding: 6rem 2rem;
+  background: #151518;
+}
+
+.team-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+  margin-top: 4rem;
+}
+
+.team-card {
+  background: #1f2937;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+  border: 1px solid #374151;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+}
+
+.team-avatar {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 2rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #374151;
+  border: 4px solid #7c3aed;
+}
+
+.team-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--fg);
+}
+
+.team-position {
+  color: #a855f7;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.team-description {
+  color: #9ca3af;
+  line-height: 1.6;
+}
+
+/* 发展历程 */
+.milestones-section {
+  padding: 6rem 2rem;
+  background: #111827;
+}
+
+.milestones-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.milestones-timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  margin-top: 4rem;
+}
+
+.milestone-item {
+  background: #1f2937;
+  padding: 2rem;
+  border-radius: 12px;
+  border-left: 4px solid #7c3aed;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.milestone-item:hover {
+  transform: translateX(5px);
+}
+
+.milestone-year {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #a855f7;
+  margin-bottom: 1rem;
+}
+
+.milestone-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--fg);
+}
+
+.milestone-description {
+  color: #9ca3af;
+  line-height: 1.6;
+}
+
+/* 联系CTA */
+.contact-cta {
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  text-align: center;
+}
+
+.contact-cta-container h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--fg);
+}
+
+.contact-cta-container p {
+  font-size: 1.2rem;
+  color: #d1d5db;
+  margin-bottom: 3rem;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* 关于我们页面响应式设计 */
+@media (max-width: 768px) {
+  .about-hero-title {
+    font-size: 2.5rem;
+  }
+
+  .about-hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .hero-stats {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .mission-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .values-grid,
+  .team-grid,
+  .milestones-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
 }

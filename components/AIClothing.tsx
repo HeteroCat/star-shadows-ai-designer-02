@@ -1,6 +1,5 @@
 'use client'
 import { useState } from 'react'
-import Header from '@/components/Header'
 
 export default function AIClothing() {
   const [formData, setFormData] = useState({
@@ -155,7 +154,6 @@ export default function AIClothing() {
 
   return (
     <div className="ai-clothing">
-      <Header />
       <div className="clothing-header"><h1>AI服装设计</h1></div>
       <div className="clothing-container">
         <div className="design-form">
